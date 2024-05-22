@@ -109,13 +109,6 @@ class Magazine:
         author_count = {}
         for article in self.articles():
             if isinstance(article.author, Author):
-                if article.author in author_count:
-                    author_count[article.author] += 1
-                else:
-                    author_count[article.author] = 1
-        contributing_authors = [author for author, count in author_count.items() if count > 2]
-        if contributing_authors:
-            return contributing_authors
-        else:
-            return None
+                author_count[article.author] = author_count.get(article.author, 0) +1
+        return [author for author, count in author_count.items() if count > 2] or None
         
